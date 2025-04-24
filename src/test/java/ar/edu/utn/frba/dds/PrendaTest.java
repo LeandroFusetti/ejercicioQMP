@@ -1,5 +1,7 @@
 package ar.edu.utn.frba.dds;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
 public class PrendaTest {
@@ -18,7 +20,14 @@ public class PrendaTest {
     assertEquals("PLASTICO",lentesNegrosPlastico().getMaterial().toString());
   }
 
+  @Test
+  public void lanzarExcepcionSiTipoEsInvalido() {
+    Exception excepcion = assertThrows(PrendaInvalidaException.class, () -> {
+      new Prenda(TipoPrenda.ZAPATOS,null,new Color(1,2,3),null);
+    });
 
+    assertEquals("La prenda es invalida: Material no puede ser nulo",excepcion.getMessage());
+  }
   public Prenda zapatosNegros(){
     Color negro= new Color(1,2,3);
     Prenda zapatosNegros = new Prenda(TipoPrenda.ZAPATOS,Material.CUERO,negro,null);

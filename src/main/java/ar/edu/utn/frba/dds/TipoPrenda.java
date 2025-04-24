@@ -14,26 +14,24 @@ public enum TipoPrenda {
   //la palabra clave final se usa para indicar que un elemento no puede ser modificado después de su inicialización.
 
   private final Categoria categoria;
+
   public Categoria getCategoria() {
     return this.categoria;
   }
 
 
   //el constructor es privado
-  TipoPrenda(Categoria categoria){
-    this.categoria= categoria;
-
+  TipoPrenda(Categoria categoria) {
+    this.categoria = categoria;
 
 
   }
 
 
-
 }
 
 
-
-enum Categoria{
+enum Categoria {
   PARTE_SUPERIOR,
   CALZADO,
   PARTE_INFERIOR,
