@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+class Prenda{
+    -tipoPrenda:TipoPrenda
+    -colorPrimario: Color
+    -colorSecundario:Color
+    -material:Material
+    -trama:Enum
+    +tipoDePrenda()
+    +categoria()
+    +material()
+}
+
+class Borrador{
+    -tipoPrenda:TipoPrenda
+    -colorPrimario: Color
+    -colorSecundario:Color
+    -material:Enum
+    -trama:Enum
+    +especificarTipoPrenda(TipoPrenda)
+    +especificarColorPrimerio(ColorPrimerio)
+    +especificarColorSecundario(ColorSecundario)
+    +especificarTrama(Trama)
+    +especificarMaterial(Material)
+}
+
+
+Borrador ...>Prenda
+
+
+@enduml
