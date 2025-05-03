@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds;
+package ar.edu.utn.frba.dds.prenda;
 
 public class PrendaInvalidaException extends RuntimeException {
 

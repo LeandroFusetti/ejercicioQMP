@@ -1,15 +1,13 @@
-package ar.edu.utn.frba.dds;
-
-import java.util.Objects;
+package ar.edu.utn.frba.dds.prenda;
 
 public class Prenda {
   private TipoPrenda tipo;
-
+  private Trama trama;
   private Material material;
   private Color colorPrimario;
   private Color colorSecundario;
 
-  public Prenda(TipoPrenda tipo, Material material, Color colorPrimario, Color colorSecundario) {
+  public Prenda(TipoPrenda tipo, Material material, Color colorPrimario, Color colorSecundario, Trama trama) {
     if (tipo == null) {
       throw new PrendaInvalidaException("Tipo de prenda no puede ser nulo");
     }
@@ -22,7 +20,7 @@ public class Prenda {
     }
 
     this.tipo = tipo;
-
+    this.trama = trama;
     this.colorPrimario = colorPrimario;
     this.material = material;
     this.colorSecundario = colorSecundario;
@@ -31,7 +29,7 @@ public class Prenda {
 
   public Color getColorSecundario() {
     if (this.colorSecundario == null) {
-      throw new IllegalStateException("color secundario no esta definido");
+      throw new ColorSecundarioException("color secundario no esta definido");
     }
     return colorSecundario;
   }
@@ -62,6 +60,4 @@ public class Prenda {
 }
 
 
-enum Material {
-  CUERO, CUERINA, ALGODON, PLASTICO
-}
+
