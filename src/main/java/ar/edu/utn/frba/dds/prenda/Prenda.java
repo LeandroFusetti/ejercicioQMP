@@ -6,8 +6,13 @@ public class Prenda {
   private Material material;
   private Color colorPrimario;
   private Color colorSecundario;
+  private Formalidad formalidad;
 
-  public Prenda(TipoPrenda tipo, Material material, Color colorPrimario, Color colorSecundario, Trama trama) {
+  public Formalidad getFormalidad() {
+    return formalidad;
+  }
+
+  public Prenda(TipoPrenda tipo, Material material, Color colorPrimario, Color colorSecundario, Trama trama, Formalidad formalidad) {
     if (tipo == null) {
       throw new PrendaInvalidaException("Tipo de prenda no puede ser nulo");
     }
@@ -24,6 +29,7 @@ public class Prenda {
     this.colorPrimario = colorPrimario;
     this.material = material;
     this.colorSecundario = colorSecundario;
+    this.formalidad = formalidad;
   }
 
 

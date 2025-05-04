@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.prenda;
 
 
+import java.awt.*;
 
 public class BorradorPrenda {
   private TipoPrenda tipo;
@@ -8,6 +9,7 @@ public class BorradorPrenda {
   private Color colorPrimario;
   private Color colorSecundario;
   private Trama trama;
+  private Formalidad formalidad;
 
   public BorradorPrenda(TipoPrenda tipo) {
     if (tipo == null) {
@@ -60,6 +62,13 @@ public class BorradorPrenda {
     }else throw new BorradorException("El material tiene que ser compatible");
   }
 
+  public BorradorPrenda especificarFormalidad(Formalidad formalidad) {
+    if(formalidad == null) {
+      throw new BorradorException("Formalidad no puede ser nulo");
+    }
+    this.formalidad = formalidad;
+    return this;
+  }
 
   private void telaLisaPorDefecto() {
     if (trama == null && (this.tipo.getCategoria() == Categoria.PARTE_SUPERIOR || this.tipo.getCategoria() == Categoria.PARTE_INFERIOR)) {
@@ -74,6 +83,6 @@ public class BorradorPrenda {
   public Prenda crearPrenda() {
     this.telaLisaPorDefecto();
 
-    return new Prenda(this.tipo, this.material, this.colorPrimario, this.colorSecundario, this.trama);
+    return new Prenda(this.tipo, this.material, this.colorPrimario, this.colorSecundario, this.trama,this.formalidad);
   }
 }

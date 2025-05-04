@@ -6,6 +6,7 @@ class Prenda{
     -colorPrimario: Color
     -colorSecundario:Color
     -material:Material
+    -Formalidad:Formalidad
     -trama:Enum
     +tipoDePrenda()
     +categoria()
@@ -37,13 +38,32 @@ class SastreSanjuan{
 }
 
 class Uniforme{
--prendaSuperior
--prendaInferior
--prendaCalzado
+-prendaSuperior:Prenda
+-prendaInferior:Prenda
+-prendaCalzado:Prenda
+}
+
+class Usuario{
+-edad:Integer
+-motor: MotorSugerencia
+}
+
+abstract class MotorSugerencia{
+-estaActivado:Boolean
++generarSugerencias(Usuario)
++filtrarSegunCriterio(Usuario)
+}
+
+class MotorAtuendoInformalSenioresMayores{
++generarSugerencias(Usuario)
++filtrarSegunCriterio(Usuario)
 }
 
 Borrador ...>Prenda
 SastreSanjuan ---|>Sastre
 Sastre ...>Uniforme
 Uniforme --->Prenda
+Usuario -->MotorSugerencia
+Usuario -->Prenda
+MotorAtuendoInformalSenioresMayores ---|>MotorSugerencia
 @enduml

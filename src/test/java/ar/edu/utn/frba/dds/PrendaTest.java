@@ -9,9 +9,9 @@ import ar.edu.utn.frba.dds.prenda.Material;
 import ar.edu.utn.frba.dds.prenda.Prenda;
 import ar.edu.utn.frba.dds.prenda.PrendaInvalidaException;
 import ar.edu.utn.frba.dds.prenda.TipoPrenda;
-import ar.edu.utn.frba.dds.sastre.Sastre;
+import ar.edu.utn.frba.dds.sastre.Atuendo;
 import ar.edu.utn.frba.dds.sastre.SastreSanJuan;
-import ar.edu.utn.frba.dds.sastre.Uniforme;
+
 import org.junit.jupiter.api.Test;
 
 public class PrendaTest {
@@ -33,7 +33,7 @@ public class PrendaTest {
   @Test
   public void lanzarExcepcionSiTipoEsInvalido() {
     Exception excepcion = assertThrows(PrendaInvalidaException.class, () -> {
-      new Prenda(TipoPrenda.ZAPATOS,null,new Color(1,2,3),null,null);
+      new Prenda(TipoPrenda.ZAPATOS,null,new Color(1,2,3),null,null,null);
     });
 
     assertEquals("La prenda es invalida: Material no puede ser nulo",excepcion.getMessage());
@@ -61,7 +61,7 @@ public class PrendaTest {
 
   @Test
   public void uniformeSanJuanEsValido(){
-    Uniforme uniformeSanJuan = uniformeSanJuan();
+    Atuendo uniformeSanJuan = uniformeSanJuan();
     assertEquals("ZAPATILLAS",uniformeSanJuan.getPrendaCalzado().getTipo().toString());
     assertEquals("JOGGING",uniformeSanJuan.getPrendaInferior().getTipo().toString());
     assertEquals("ACETATO",uniformeSanJuan.getPrendaInferior().getMaterial().toString());
@@ -100,7 +100,7 @@ public class PrendaTest {
         .crearPrenda();
   }
 
-  public Uniforme uniformeSanJuan(){
+  public Atuendo uniformeSanJuan(){
     return new SastreSanJuan().fabricarUniforme();
   }
 

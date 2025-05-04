@@ -5,8 +5,8 @@ import ar.edu.utn.frba.dds.prenda.Prenda;
 public abstract class Sastre {
 
 
-  public Uniforme fabricarUniforme() {
-    return new Uniforme(this.fabricarParteSuperior(), this.fabricarParteInferior(), this.fabricarCalzado());
+  public Atuendo fabricarUniforme() {
+    return new Atuendo(this.fabricarParteSuperior(), this.fabricarParteInferior(), this.fabricarCalzado());
 
   }
 
