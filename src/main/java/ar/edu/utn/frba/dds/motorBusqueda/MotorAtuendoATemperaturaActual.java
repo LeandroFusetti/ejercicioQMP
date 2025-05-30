@@ -22,19 +22,19 @@ public class MotorAtuendoATemperaturaActual extends MotorSugerencia {
   }
 
   private boolean TempDentroDeIntervalo(Double tempMin, Double tempMax, Double tempActual) {
-    System.out.println("tempMin: " + tempMin + ", tempMax: " + tempMax);
-    return tempActual >= tempMin&& tempActual <= tempMax;
+    //System.out.println("tempMin: " + tempMin + ", tempMax: " + tempMax);
+    return tempActual >= tempMin && tempActual <= tempMax;
 
   }
 
   @Override
   public List<Prenda> filtrarSegunCriterio(Usuario usuario) throws IOException {
-  Double temperaturaActual= getTemperaturaActual();
+    Double temperaturaActual = getTemperaturaActual();
     return usuario.getPrendas().stream()
         .filter(p -> {
           return this.TempDentroDeIntervalo(
               p.getTipo().getEsAptaDesdeLaTempDe(),
-              p.getTipo().getEsAptaHastaLaTempDe(),temperaturaActual);
+              p.getTipo().getEsAptaHastaLaTempDe(), temperaturaActual);
         })
         .toList();
   }

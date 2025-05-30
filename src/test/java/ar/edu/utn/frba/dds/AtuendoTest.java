@@ -1,5 +1,7 @@
 package ar.edu.utn.frba.dds;
 
+import ar.edu.utn.frba.dds.apiGratuita.OpenWeatherApi;
+import ar.edu.utn.frba.dds.apiclima.AccuWeatherAPI;
 import ar.edu.utn.frba.dds.motorBusqueda.MotorAtuendoATemperaturaActual;
 import ar.edu.utn.frba.dds.motorBusqueda.MotorAtuendoInformalSenioresMayores;
 import ar.edu.utn.frba.dds.prenda.BorradorPrenda;
@@ -8,6 +10,7 @@ import ar.edu.utn.frba.dds.prenda.Formalidad;
 import ar.edu.utn.frba.dds.prenda.Material;
 import ar.edu.utn.frba.dds.prenda.Prenda;
 import ar.edu.utn.frba.dds.prenda.TipoPrenda;
+import ar.edu.utn.frba.dds.sistemaMeteorologico.ServicioMeteorologicoAccuWeather;
 import ar.edu.utn.frba.dds.sistemaMeteorologico.ServicioMeteorologicoOpenWeather;
 import ar.edu.utn.frba.dds.usuario.Usuario;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,9 +19,13 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
 public class AtuendoTest {
@@ -65,31 +72,30 @@ public class AtuendoTest {
     assertEquals(8, usuarioMotorMenor().recibirSugerenciasDeAtuendos().size());
   }
 
-  /*CON API GRATUITA DEL CLIMA
+ //-----Test con mockApi---
   @Test
   public void elUsuarioMenorPideCombinacionesDePrendasTempActual() throws IOException {
-    assertEquals(1, usuarioMotorTemperaturaAPIGratuita().recibirSugerenciasDeAtuendos().size());
+    assertEquals(1, usuarioMotorTemperaturaAPIMock().recibirSugerenciasDeAtuendos().size());
   }
-  */
-  @Test
-  public void elUsuarioMenorPideCombinacionesDePrendasTempActual() throws IOException {
-    assertEquals(1, usuarioMotorTemperaturaAPIGratuita().recibirSugerenciasDeAtuendos().size());
-  }
+
   //-----------USUARIOS-----------
   public Usuario usuarioMotorMayor() {
     return new Usuario(60, conjuntoDePrendas(), new MotorAtuendoInformalSenioresMayores());
   }
 
-  public Usuario usuarioMotorTemperaturaAPIGratuita() {
-    return new Usuario(20, conjuntoDePrendas(), new MotorAtuendoATemperaturaActual(new ServicioMeteorologicoOpenWeather()));
+  //---------Mock De Accuweather-----
+  public Usuario usuarioMotorTemperaturaAPIMock() {
+    AccuWeatherAPI mockApi = mock(AccuWeatherAPI.class);
+    when(mockApi.getWeather(anyString()))
+        .thenReturn(List.of(Map.of("Temperature", Map.of("Value", 30.0))));
+    return new Usuario(20, conjuntoDePrendas(),
+        new MotorAtuendoATemperaturaActual(new ServicioMeteorologicoAccuWeather(mockApi)));
   }
-
 
 
   public Usuario usuarioMotorMayorConMotorApagado() {
     Usuario usuario = new Usuario(60, conjuntoDePrendas(), new MotorAtuendoInformalSenioresMayores());
     usuario.getMotor().desactivar();
-    //System.out.println(usuario.getMotor().isEstaActivado());
     return usuario;
   }
 
