@@ -37,7 +37,7 @@ class SastreSanjuan{
 +fabricarCalzado()
 }
 
-class Uniforme{
+class Atuendo{
 -prendaSuperior:Prenda
 -prendaInferior:Prenda
 -prendaCalzado:Prenda
@@ -59,11 +59,38 @@ class MotorAtuendoInformalSenioresMayores{
 +filtrarSegunCriterio(Usuario)
 }
 
+class MotorAtuendoATemperaturaActual{
+-servicioMeteorologico:ServicioMeteorologico
++getTemperaturaActual()
++generarSugerencias(Usuario)
++filtrarSegunCriterio(Usuario)
+}
+
+interface ServicioMeteorologico{
++getTemperaturaActual()
+}
+
+class ServicioMeteorologicoAccuWeather{
+-accuWeatherAPI:AccuWeatherAPI
++getTemperaturaActual()
+}
+
+class ServicioMeteorologicoOpenWeather{
+-openWeatherApi:OpenWeatherApi
++getTemperaturaActual()
+}
+
+
 Borrador ...>Prenda
 SastreSanjuan ---|>Sastre
-Sastre ...>Uniforme
-Uniforme --->Prenda
+Sastre ...>Atuendo
+Atuendo --->Prenda
 Usuario -->MotorSugerencia
 Usuario -->Prenda
 MotorAtuendoInformalSenioresMayores ---|>MotorSugerencia
+MotorAtuendoATemperaturaActual ---|>MotorSugerencia
+MotorAtuendoATemperaturaActual --->ServicioMeteorologico
+ServicioMeteorologicoAccuWeather...|>ServicioMeteorologico
+ServicioMeteorologicoOpenWeather...|>ServicioMeteorologico
+
 @enduml
