@@ -12,7 +12,8 @@ public class Prenda {
     return formalidad;
   }
 
-  public Prenda(TipoPrenda tipo, Material material, Color colorPrimario, Color colorSecundario, Trama trama, Formalidad formalidad) {
+  public Prenda(TipoPrenda tipo, Material material, Color colorPrimario, Color colorSecundario,
+                Trama trama, Formalidad formalidad) {
     if (tipo == null) {
       throw new PrendaInvalidaException("Tipo de prenda no puede ser nulo");
     }

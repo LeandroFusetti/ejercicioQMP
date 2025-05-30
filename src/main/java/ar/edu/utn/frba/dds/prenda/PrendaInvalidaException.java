@@ -7,5 +7,4 @@ public class PrendaInvalidaException extends RuntimeException {
   }
 
 
-
 }

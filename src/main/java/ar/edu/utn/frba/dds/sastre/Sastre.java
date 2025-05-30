@@ -6,7 +6,8 @@ public abstract class Sastre {
 
 
   public Atuendo fabricarUniforme() {
-    return new Atuendo(this.fabricarParteSuperior(), this.fabricarParteInferior(), this.fabricarCalzado());
+    return new Atuendo(this.fabricarParteSuperior(),
+        this.fabricarParteInferior(), this.fabricarCalzado());
 
   }
 

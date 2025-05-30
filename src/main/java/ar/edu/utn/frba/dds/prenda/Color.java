@@ -1,7 +1,9 @@
 package ar.edu.utn.frba.dds.prenda;
 
 public class Color {
-  int rojo, azul, verde;
+  int rojo;
+  int azul;
+  int verde;
 
   public Color(int rojo, int verde, int azul) {
     // Validar que los valores estén entre 0 y 255

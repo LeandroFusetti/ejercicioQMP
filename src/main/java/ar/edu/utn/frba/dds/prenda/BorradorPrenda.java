@@ -1,8 +1,6 @@
 package ar.edu.utn.frba.dds.prenda;
 
 
-import java.awt.*;
-
 public class BorradorPrenda {
   private TipoPrenda tipo;
   private Material material;
@@ -44,7 +42,7 @@ public class BorradorPrenda {
   }
 
   public BorradorPrenda especificarTrama(Trama trama) {
-    if(trama == null) {
+    if (trama == null) {
       throw new BorradorException("Trama no puede ser nulo");
     }
     this.trama = trama;
@@ -52,18 +50,20 @@ public class BorradorPrenda {
   }
 
   public BorradorPrenda especificarMaterial(Material material) {
-    if(material == null) {
+    if (material == null) {
       throw new BorradorException("Material no puede ser nulo");
     }
-    if(esCompatible(material)){
-    this.material = material;
-    return this;
+    if (esCompatible(material)) {
+      this.material = material;
+      return this;
 
-    }else throw new BorradorException("El material tiene que ser compatible");
+    } else {
+      throw new BorradorException("El material tiene que ser compatible");
+    }
   }
 
   public BorradorPrenda especificarFormalidad(Formalidad formalidad) {
-    if(formalidad == null) {
+    if (formalidad == null) {
       throw new BorradorException("Formalidad no puede ser nulo");
     }
     this.formalidad = formalidad;
@@ -71,7 +71,8 @@ public class BorradorPrenda {
   }
 
   private void telaLisaPorDefecto() {
-    if (trama == null && (this.tipo.getCategoria() == Categoria.PARTE_SUPERIOR || this.tipo.getCategoria() == Categoria.PARTE_INFERIOR)) {
+    if (trama == null && (this.tipo.getCategoria() == Categoria.PARTE_SUPERIOR
+        || this.tipo.getCategoria() == Categoria.PARTE_INFERIOR)) {
       this.trama = Trama.LISA;
     }
   }
@@ -83,6 +84,7 @@ public class BorradorPrenda {
   public Prenda crearPrenda() {
     this.telaLisaPorDefecto();
 
-    return new Prenda(this.tipo, this.material, this.colorPrimario, this.colorSecundario, this.trama,this.formalidad);
+    return new Prenda(this.tipo, this.material, this.colorPrimario,
+        this.colorSecundario, this.trama, this.formalidad);
   }
 }
