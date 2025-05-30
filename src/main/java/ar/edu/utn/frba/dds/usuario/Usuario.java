@@ -3,6 +3,8 @@ package ar.edu.utn.frba.dds.usuario;
 import ar.edu.utn.frba.dds.motorBusqueda.MotorSugerencia;
 import ar.edu.utn.frba.dds.prenda.Prenda;
 import ar.edu.utn.frba.dds.sastre.Atuendo;
+
+import java.io.IOException;
 import java.util.List;
 
 
@@ -33,7 +35,7 @@ public class Usuario {
     return motor;
   }
 
-  public List<Atuendo> recibirSugerenciasDeAtuendos() {
+  public List<Atuendo> recibirSugerenciasDeAtuendos() throws IOException {
     return this.motor.generarSugerencias(this);
   }
 

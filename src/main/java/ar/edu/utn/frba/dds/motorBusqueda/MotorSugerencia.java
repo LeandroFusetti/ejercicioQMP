@@ -4,6 +4,8 @@ import ar.edu.utn.frba.dds.prenda.Categoria;
 import ar.edu.utn.frba.dds.prenda.Prenda;
 import ar.edu.utn.frba.dds.sastre.Atuendo;
 import ar.edu.utn.frba.dds.usuario.Usuario;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,13 +47,13 @@ public abstract class MotorSugerencia {
     return sugerencias;
   }
 
-  public List<Atuendo> generarSugerencias(Usuario usuario) {
+  public List<Atuendo> generarSugerencias(Usuario usuario) throws IOException {
     return this.combinatoriaDeAtuendos(this.aplicarFiltro(usuario));
   }
 
-  public List<Prenda> aplicarFiltro(Usuario usuario) {
+  public List<Prenda> aplicarFiltro(Usuario usuario) throws IOException {
     return this.isEstaActivado() ? this.filtrarSegunCriterio(usuario) : usuario.getPrendas();
   }
 
-  abstract List<Prenda> filtrarSegunCriterio(Usuario usuario);
+  abstract List<Prenda> filtrarSegunCriterio(Usuario usuario) throws IOException;
 }
