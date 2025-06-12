@@ -46,6 +46,7 @@ class Atuendo{
 class Usuario{
 -edad:Integer
 -motor: MotorSugerencia
+-prendas:List<Prenda>
 }
 
 abstract class MotorSugerencia{
@@ -80,7 +81,36 @@ class ServicioMeteorologicoOpenWeather{
 +getTemperaturaActual()
 }
 
+class Guardarropa{
+-prendas:List<Prenda>
+-solicitudesModificacionGuardarropa:List<solicitudesModificacionGuardarropa>
++crearSolicitudAgregarAGuardarropa(Prenda)
++crearSolicitudQuitarDeGuardarropa(Prenda)
 
+}
+
+abstract class SolicitudModificacionGuardarropa{
+-Prenda
+-Estado
++rechazarSolicitudEn(Guardarropa)
++aceptarSolicitudEn(Guardarropa)
+}
+
+class SolicitudAgregarAGuardarropa{
++realizarAccionEn(Guardarropa)
++deshacerAccionEn(Guardarropa)
+}
+
+class SolicitudQuitarDeGuardarropa{
++realizarAccionEn(Guardarropa)
++deshacerAccionEn(Guardarropa)
+}
+
+SolicitudAgregarAGuardarropa ---|>SolicitudModificacionGuardarropa
+SolicitudQuitarDeGuardarropa ---|>SolicitudModificacionGuardarropa
+Guardarropa ---> SolicitudModificacionGuardarropa
+Usuario --->Guardarropa
+Guardarropa--->Prenda
 Borrador ...>Prenda
 SastreSanjuan ---|>Sastre
 Sastre ...>Atuendo

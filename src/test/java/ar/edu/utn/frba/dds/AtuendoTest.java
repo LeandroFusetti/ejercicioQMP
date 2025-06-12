@@ -78,13 +78,15 @@ public class AtuendoTest {
     assertEquals(1, usuarioMotorTemperaturaAPIMock().recibirSugerenciasDeAtuendos().size());
   }
 
+
+
   //-----------USUARIOS-----------
-  public Usuario usuarioMotorMayor() {
+  public static Usuario usuarioMotorMayor() {
     return new Usuario(60, conjuntoDePrendas(), new MotorAtuendoInformalSenioresMayores());
   }
 
   //---------Mock De Accuweather-----
-  public Usuario usuarioMotorTemperaturaAPIMock() {
+  public static Usuario usuarioMotorTemperaturaAPIMock() {
     AccuWeatherAPI mockApi = mock(AccuWeatherAPI.class);
     when(mockApi.getWeather(anyString()))
         .thenReturn(List.of(Map.of("Temperature", Map.of("Value", 30.0))));
@@ -93,18 +95,18 @@ public class AtuendoTest {
   }
 
 
-  public Usuario usuarioMotorMayorConMotorApagado() {
+  public static Usuario usuarioMotorMayorConMotorApagado() {
     Usuario usuario = new Usuario(60, conjuntoDePrendas(), new MotorAtuendoInformalSenioresMayores());
     usuario.getMotor().desactivar();
     return usuario;
   }
 
-  public Usuario usuarioMotorMenor() {
+  public static Usuario usuarioMotorMenor() {
     return new Usuario(20, conjuntoDePrendas(), new MotorAtuendoInformalSenioresMayores());
   }
 
   //-----------CONJUNTO DE PRENDAS-----------
-  public List<Prenda> conjuntoDePrendasInvierno() {
+  public static List<Prenda> conjuntoDePrendasInvierno() {
     List<Prenda> prendas = new ArrayList<Prenda>();
     prendas.add(zapatosNegros());
     prendas.add(zapatillasBlancas());
@@ -113,7 +115,7 @@ public class AtuendoTest {
     return prendas;
   }
 
-  public List<Prenda> conjuntoDePrendas() {
+  public static List<Prenda> conjuntoDePrendas() {
     List<Prenda> prendas = new ArrayList<Prenda>();
     prendas.add(zapatosNegros());
     prendas.add(zapatillasBlancas());
@@ -125,7 +127,7 @@ public class AtuendoTest {
   }
 
   //-----------PRENDAS-----------
-  public Prenda zapatosNegros() {
+  public static Prenda zapatosNegros() {
     Color negro = new Color(1, 2, 3);
 
     Prenda zapatosNegros = new BorradorPrenda(TipoPrenda.ZAPATOS)
@@ -136,7 +138,7 @@ public class AtuendoTest {
     return zapatosNegros;
   }
 
-  public Prenda zapatillasBlancas() {
+  public static Prenda zapatillasBlancas() {
     Color blanco = new Color(1, 2, 3);
     Prenda zapatillasBlancas = new BorradorPrenda(TipoPrenda.ZAPATILLAS)
         .especificarColorPrimario(blanco)
@@ -146,7 +148,7 @@ public class AtuendoTest {
     return zapatillasBlancas;
   }
 
-  public Prenda camisaMangaLargaNegra() {
+  public static Prenda camisaMangaLargaNegra() {
     Color negro = new Color(1, 2, 3);
     Color azul = new Color(2, 3, 4);
     return new BorradorPrenda(TipoPrenda.CAMISA_MANGA_LARGA)
@@ -157,7 +159,7 @@ public class AtuendoTest {
         .crearPrenda();
   }
 
-  public Prenda camisaMangaCortaNegra() {
+  public static Prenda camisaMangaCortaNegra() {
     Color negro = new Color(1, 2, 3);
     Color azul = new Color(2, 3, 4);
     return new BorradorPrenda(TipoPrenda.CAMISA_MANGA_CORTA)
@@ -168,7 +170,7 @@ public class AtuendoTest {
         .crearPrenda();
   }
 
-  public Prenda pantalonJogging() {
+  public static Prenda pantalonJogging() {
     Color negro = new Color(1, 2, 3);
     Color azul = new Color(2, 3, 4);
     return new BorradorPrenda(TipoPrenda.JOGGING)
@@ -179,7 +181,7 @@ public class AtuendoTest {
         .crearPrenda();
   }
 
-  public Prenda pantalonJean() {
+  public static Prenda pantalonJean() {
     Color negro = new Color(1, 2, 3);
     Color azul = new Color(2, 3, 4);
     return new BorradorPrenda(TipoPrenda.JEAN)
