@@ -1,126 +1,232 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-class Prenda{
-    -tipoPrenda:TipoPrenda
-    -colorPrimario: Color
-    -colorSecundario:Color
-    -material:Material
-    -Formalidad:Formalidad
-    -trama:Enum
-    +tipoDePrenda()
-    +categoria()
-    +material()
-}
 
-class Borrador{
-    -tipoPrenda:TipoPrenda
-    -colorPrimario: Color
-    -colorSecundario:Color
-    -material:Enum
-    -trama:Enum
-    +especificarTipoPrenda(TipoPrenda)
-    +especificarColorPrimerio(ColorPrimerio)
-    +especificarColorSecundario(ColorSecundario)
-    +especificarTrama(Trama)
-    +especificarMaterial(Material)
-}
 
-abstract class Sastre{
-+fabricarUniforme()
+    class Prenda {
+        -tipoPrenda: TipoPrenda
+        -colorPrimario: Color
+        -colorSecundario: Color
+        -material: Material
+        -formalidad: Formalidad
+        -trama: Trama
+        +tipoDePrenda()
+        +categoria()
+        +material()
+    }
 
-}
+    class Borrador {
+        -tipoPrenda: TipoPrenda
+        -colorPrimario: Color
+        -colorSecundario: Color
+        -material: Material
+        -trama: Trama
+        +especificarTipoPrenda(TipoPrenda)
+        +especificarColorPrimario(Color)
+        +especificarColorSecundario(Color)
+        +especificarTrama(Trama)
+        +especificarMaterial(Material)
+    }
 
-class SastreSanjuan{
-+fabricarParteSuperior()
-+fabricarParteInferior()
-+fabricarCalzado()
-}
+    class Atuendo {
+        -prendaSuperior: Prenda
+        -prendaInferior: Prenda
+        -prendaCalzado: Prenda
+    }
 
-class Atuendo{
--prendaSuperior:Prenda
--prendaInferior:Prenda
--prendaCalzado:Prenda
-}
+    class Usuario {
+        -mail: String
+        -edad: Integer
+        -sugerenciaDiaria: List<Atuendo>
+        -motor: MotorSugerencia
+        -prendas: List<Prenda>
+        -accionesConfigurables: List<AccionConfigurable>
+        +obtenerSugerenciaDiaria()
+        +realizarAccionAnteAlertas(List<AlertaMeteorologica>)
+        +consultarAlertas(registroDeAlertas: RegistroDeAlertas): List<AlertaMeteorologica>
+        +recibirSugerenciasDeAtuendos(): List<Atuendo>
+        +realizarAccionAnteAlertas(alertas: List<AlertaMeteorologica>): void
+    }
 
-class Usuario{
--edad:Integer
--motor: MotorSugerencia
--prendas:List<Prenda>
-}
 
-abstract class MotorSugerencia{
--estaActivado:Boolean
-+generarSugerencias(Usuario)
-+filtrarSegunCriterio(Usuario)
-}
+    class AlertaMeteorologica {
+        <<enum>>
+        TORMENTA
+        GRANIZO
+        +String mensaje
+        +getMensaje() String
+    }
 
-class MotorAtuendoInformalSenioresMayores{
-+generarSugerencias(Usuario)
-+filtrarSegunCriterio(Usuario)
-}
+    class RegistroDeAlertas {
+        +ServicioMeteorologico servicioMeteorologico
+        +List~AlertaMeteorologica~ alertasActuales
+        +List~Usuario~ usuariosSuscritos
+        +suscribirUsuario(Usuario)
+        +actualizarAlertas()
+        +getAlertasActuales() List~AlertaMeteorologica~
+    }
 
-class MotorAtuendoATemperaturaActual{
--servicioMeteorologico:ServicioMeteorologico
-+getTemperaturaActual()
-+generarSugerencias(Usuario)
-+filtrarSegunCriterio(Usuario)
-}
 
-interface ServicioMeteorologico{
-+getTemperaturaActual()
-}
+    abstract class MotorSugerencia {
+        -estaActivado: Boolean
+        +generarSugerencias(Usuario)
+        +filtrarSegunCriterio(Usuario)
+    }
 
-class ServicioMeteorologicoAccuWeather{
--accuWeatherAPI:AccuWeatherAPI
-+getTemperaturaActual()
-}
+    class MotorAlertaMeteorologica {
+        -ServicioMeteorologico servicioMeteorologico
+        +getAlertasMeteorologicas()
+    }
 
-class ServicioMeteorologicoOpenWeather{
--openWeatherApi:OpenWeatherApi
-+getTemperaturaActual()
-}
+    class MotorAtuendoATemperaturaActual {
+        -ServicioMeteorologico servicioMeteorologico
+        +getTemperaturaActual()
+    }
 
-class Guardarropa{
--prendas:List<Prenda>
--solicitudesModificacionGuardarropa:List<solicitudesModificacionGuardarropa>
-+crearSolicitudAgregarAGuardarropa(Prenda)
-+crearSolicitudQuitarDeGuardarropa(Prenda)
 
-}
+    interface ServicioMeteorologico {
+        +getTemperaturaActual()
+        +getAlertasMeteorologicas()
+    }
 
-abstract class SolicitudModificacionGuardarropa{
--Prenda
--Estado
-+rechazarSolicitudEn(Guardarropa)
-+aceptarSolicitudEn(Guardarropa)
-}
+    class ServicioMeteorologicoAccuWeather {
+        -AccuWeatherAPI accuWeatherAPI
+    }
 
-class SolicitudAgregarAGuardarropa{
-+realizarAccionEn(Guardarropa)
-+deshacerAccionEn(Guardarropa)
-}
+    class ServicioMeteorologicoOpenWeather {
+        -OpenWeatherAPI openWeatherAPI
+    }
 
-class SolicitudQuitarDeGuardarropa{
-+realizarAccionEn(Guardarropa)
-+deshacerAccionEn(Guardarropa)
-}
 
-SolicitudAgregarAGuardarropa ---|>SolicitudModificacionGuardarropa
-SolicitudQuitarDeGuardarropa ---|>SolicitudModificacionGuardarropa
-Guardarropa ---> SolicitudModificacionGuardarropa
-Usuario --->Guardarropa
-Guardarropa--->Prenda
-Borrador ...>Prenda
-SastreSanjuan ---|>Sastre
-Sastre ...>Atuendo
-Atuendo --->Prenda
-Usuario -->MotorSugerencia
-Usuario -->Prenda
-MotorAtuendoInformalSenioresMayores ---|>MotorSugerencia
-MotorAtuendoATemperaturaActual ---|>MotorSugerencia
-MotorAtuendoATemperaturaActual --->ServicioMeteorologico
-ServicioMeteorologicoAccuWeather...|>ServicioMeteorologico
-ServicioMeteorologicoOpenWeather...|>ServicioMeteorologico
+    interface AccionConfigurable {
+        +anteNuevasAlertas(Usuario, List~AlertaMeteorologica~)
+    }
 
+    class EnviarMail {
+        -Correo correo
+        -String mensaje
+        +anteNuevasAlertas(Usuario, List~AlertaMeteorologica~)
+    }
+
+    class EnviarNotificacion {
+        -Notificador notificador
+        +anteNuevasAlertas(Usuario, List~AlertaMeteorologica~)
+    }
+
+    class RecalcularSugerencias {
+        +anteNuevasAlertas(Usuario, List~AlertaMeteorologica~)
+    }
+
+
+    interface Correo {
+        +enviarCorreo(Usuario, String)
+    }
+
+    class CorreoAdapter {
+        -MailSender mailSender
+        +enviarCorreo(Usuario, String)
+    }
+
+    interface Notificador {
+        +notificar(String)
+    }
+
+    class NotificadorAdapter {
+        -NotificadorSender notificadorSender
+        +notificar(String)
+    }
+
+
+    interface MailSender {
+        +sendMail(String, String)
+    }
+
+    interface NotificadorSender {
+        +notify(String)
+    }
+
+
+    class Guardarropa {
+        -prendas: List<Prenda>
+        -solicitudes: List<SolicitudModificacionGuardarropa>
+        +crearSolicitudAgregar(Prenda)
+        +crearSolicitudQuitar(Prenda)
+    }
+
+    abstract class SolicitudModificacionGuardarropa {
+        -Prenda prenda
+        -Estado estado
+        +rechazarSolicitud()
+        +aceptarSolicitud()
+    }
+
+    class SolicitudAgregarAGuardarropa {
+        +realizarAccion()
+        +deshacerAccion()
+    }
+
+    class SolicitudQuitarDeGuardarropa {
+        +realizarAccion()
+        +deshacerAccion()
+    }
+
+
+    abstract class Sastre {
+        +fabricarUniforme() Atuendo
+    }
+
+    class SastreSanjuan {
+        +fabricarParteSuperior() Prenda
+        +fabricarParteInferior() Prenda
+        +fabricarCalzado() Prenda
+    }
+
+
+
+    SolicitudAgregarAGuardarropa --|> SolicitudModificacionGuardarropa
+    SolicitudQuitarDeGuardarropa --|> SolicitudModificacionGuardarropa
+    Guardarropa "1" *-- "0..*" SolicitudModificacionGuardarropa
+    Guardarropa "1" *-- "0..*" Prenda
+
+
+    Usuario "1" *-- "0..*" Guardarropa
+    Usuario "1" *-- "1" MotorSugerencia
+    Usuario "1" *-- "0..*" Prenda
+    Usuario --> AccionConfigurable
+
+    RegistroDeAlertas --> ServicioMeteorologico
+    RegistroDeAlertas "1" *-- "0..*" AlertaMeteorologica
+    RegistroDeAlertas "1" *-- "0..*" Usuario
+
+
+
+    EnviarMail ..|> AccionConfigurable
+    EnviarNotificacion ..|> AccionConfigurable
+    RecalcularSugerencias ..|> AccionConfigurable
+    EnviarMail --> Correo
+    EnviarNotificacion --> Notificador
+
+
+    CorreoAdapter ..|> Correo
+    CorreoAdapter --> MailSender
+    NotificadorAdapter ..|> Notificador
+    NotificadorAdapter --> NotificadorSender
+
+
+    MotorAlertaMeteorologica --|> MotorSugerencia
+    MotorAtuendoATemperaturaActual --|> MotorSugerencia
+    MotorAlertaMeteorologica --> ServicioMeteorologico
+    MotorAtuendoATemperaturaActual --> ServicioMeteorologico
+
+
+    ServicioMeteorologicoAccuWeather ..|> ServicioMeteorologico
+    ServicioMeteorologicoOpenWeather ..|> ServicioMeteorologico
+
+
+    SastreSanjuan --|> Sastre
+    Sastre ..> Atuendo
+    Atuendo "1" *-- "1..3" Prenda
+
+
+    Borrador ..> Prenda
 @enduml

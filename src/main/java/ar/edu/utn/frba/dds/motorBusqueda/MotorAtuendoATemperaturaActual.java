@@ -17,7 +17,7 @@ public class MotorAtuendoATemperaturaActual extends MotorSugerencia {
 
   }
 
-  public Double getTemperaturaActual() throws IOException {
+  public Double getTemperaturaActual() {
     return this.servicioMeteorologico.getTemperaturaActual();
   }
 
@@ -28,7 +28,7 @@ public class MotorAtuendoATemperaturaActual extends MotorSugerencia {
   }
 
   @Override
-  public List<Prenda> filtrarSegunCriterio(Usuario usuario) throws IOException {
+  public List<Prenda> filtrarSegunCriterio(Usuario usuario) {
     Double temperaturaActual = getTemperaturaActual();
     return usuario.getPrendas().stream()
         .filter(p -> {

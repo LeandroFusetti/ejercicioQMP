@@ -26,9 +26,19 @@ public class OpenWeatherApi {
     return INSTANCE;
   }
 
-  public TemperatureResponse getTemperature(double lat, double lon, String units) throws IOException {
-    Call<TemperatureResponse> call = service.getTemperature(lat, lon, API_KEY, units);
-    Response<TemperatureResponse> response = call.execute();
-    return response.body();
+  public TemperatureResponse getTemperature(double lat, double lon, String units) {
+    try {
+      Call<TemperatureResponse> call = service.getTemperature(lat, lon, API_KEY, units);
+      Response<TemperatureResponse> response = call.execute();
+      if (!response.isSuccessful()) {
+        String errorBody = response.errorBody() != null ?
+            response.errorBody().string() : "Sin detalles";
+        throw new RuntimeException("Error en API: " + response.code() + " - " + errorBody);
+      }
+      return response.body();
+    } catch (IOException e) {
+      throw new RuntimeException("Fallo al llamar a la API del clima: " + e.getMessage(), e);
+    }
+
   }
 }

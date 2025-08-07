@@ -47,13 +47,13 @@ public abstract class MotorSugerencia {
     return sugerencias;
   }
 
-  public List<Atuendo> generarSugerencias(Usuario usuario) throws IOException {
+  public List<Atuendo> generarSugerencias(Usuario usuario)  {
     return this.combinatoriaDeAtuendos(this.aplicarFiltro(usuario));
   }
 
-  public List<Prenda> aplicarFiltro(Usuario usuario) throws IOException {
+  public List<Prenda> aplicarFiltro(Usuario usuario) {
     return this.isEstaActivado() ? this.filtrarSegunCriterio(usuario) : usuario.getPrendas();
   }
 
-  abstract List<Prenda> filtrarSegunCriterio(Usuario usuario) throws IOException;
+  abstract List<Prenda> filtrarSegunCriterio(Usuario usuario) ;
 }

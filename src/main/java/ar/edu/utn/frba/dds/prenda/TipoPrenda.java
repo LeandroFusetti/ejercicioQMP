@@ -12,14 +12,19 @@ public enum TipoPrenda {
           Material.ACETATO, Material.PIQUE), 21.00, 35.00),
   CHOMBA(Categoria.PARTE_SUPERIOR, Arrays.asList(Material.LANA, Material.ALGODON,
       Material.SEDA, Material.ACETATO, Material.PIQUE), 21.00, 35.00),
+  CAMPERA_DE_LLUVIA(Categoria.PARTE_SUPERIOR, Arrays.asList(Material.IMPERMEABLE), 0.00, 35.00),
+
 
   JEAN(Categoria.PARTE_INFERIOR, Arrays.asList(Material.LANA, Material.ALGODON,
       Material.SEDA, Material.ACETATO), 0.00, 21.00),
   JOGGING(Categoria.PARTE_INFERIOR, Arrays.asList(Material.LANA, Material.ALGODON,
       Material.SEDA, Material.ACETATO), 10.00, 30.00),
+  PANTALON_DE_LLUVIA(Categoria.PARTE_INFERIOR, Arrays.asList(Material.IMPERMEABLE), 0.00, 35.00),
+
 
   ZAPATOS(Categoria.CALZADO, Arrays.asList(Material.CUERO, Material.CUERINA), 10.00, 20.00),
   ZAPATILLAS(Categoria.CALZADO, Arrays.asList(Material.CUERO, Material.CUERINA), 0.00, 35.00),
+  BOTAS_DE_LLUVIA(Categoria.CALZADO, Arrays.asList(Material.IMPERMEABLE), 0.00, 35.00),
 
   GORRA(Categoria.ACCESORIOS, Arrays.asList(Material.LANA, Material.ALGODON), 5.00, 35.00),
   ANTEOJOS_DE_SOL(Categoria.ACCESORIOS, List.of(Material.PLASTICO), 0.00, 35.00);
